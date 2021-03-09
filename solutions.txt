@@ -5,7 +5,11 @@
         SELECT * FROM `ospiti` WHERE `document_type` = "CI";
 
 ●    Selezionare i paganti che abbiano un ospite id associato
-        SELECT * FROM `paganti` WHERE `ospite_id` <> "NULL";
+        // soluzione migliore
+        SELECT * FROM `paganti` WHERE `ospite_id` IS NOT NULL;
+
+        // soluzione alternativa
+        SELECT * FROM `paganti` WHERE `ospite_id` > 0;
 
 ●    Selezionare tutte le stanze del primo piano
         SELECT * FROM `stanze` WHERE `floor` = 1;
@@ -14,7 +18,14 @@
         SELECT * FROM `ospiti` WHERE `name` LIKE "e%" OR `lastname` LIKE "e%";
 
 ●    Selezionare tutti gli ospiti che abbiano meno di 30 anni
-        SELECT * FROM `ospiti` WHERE (EXTRACT(YEAR FROM CURRENT_TIMESTAMP) - EXTRACT(YEAR FROM `date_of_birth`)) < 30
+        // soluzione migliore
+        SELECT * FROM `ospiti` WHERE `date_of_birth` > (CURDATE() - INTERVAL - 30); 
+
+        // soluzione alternativa (qui contempla solo gli anni ma modificabile)
+        SELECT `name`,`lastname`,`date_of_birth`,TIMESTAMPDIFF(YEAR,`date_of_birth`, CURRENT_TIMESTAMP ) AS age FROM `ospiti` WHERE TIMESTAMPDIFF(YEAR,`date_of_birth`, CURRENT_TIMESTAMP ) <= 30;
+
+        // soluzione che contempla solo gli anni
+        SELECT * FROM `ospiti` WHERE (EXTRACT(YEAR FROM CURRENT_TIMESTAMP) - EXTRACT(YEAR FROM `date_of_birth`)) < 30;
 
 ●    Seleziona tutte le prenotazioni precedenti a maggio 2018
         SELECT * FROM `prenotazioni` WHERE `updated_at` < "2018-05-01";
