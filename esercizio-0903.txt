@@ -25,12 +25,24 @@
 ●    Quanti posti letto ha l’hotel in totale?
         SELECT SUM(beds) FROM stanze; 
 
+
 Group by
 ●    Conta gli ospiti raggruppandoli per anno di nascita
+        SELECT COUNT(id) FROM ospiti GROUP BY EXTRACT(YEAR FROM date_of_birth);
+
 ●    Somma i prezzi dei pagamenti raggruppandoli per status
+        SELECT SUM(price), status FROM pagamenti GROUP BY status;
+
 ●    Conta quante volte è stata prenotata ogni stanza
+        SELECT COUNT(id), stanza_id FROM prenotazioni GROUP BY stanza_id;
+
 ●    Fai una analisi per vedere se ci sono ore in cui le prenotazioni sono più frequenti
+??      SELECT EXTRACT(HOUR FROM created_at) FROM ospiti GROUP BY EXTRACT(HOUR FROM created_at);    ??
+
 ●    Quante prenotazioni ha fatto l’ospite che ha fatto più prenotazioni?
+        SELECT COUNT(*) AS bookings FROM ospiti GROUP BY lastname ORDER BY bookings DESC;
+
+
 Join
 ●    Come si chiamano gli ospiti che hanno fatto più di due prenotazioni?
 ●    Stampare tutti gli ospiti per ogni prenotazione

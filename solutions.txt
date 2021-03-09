@@ -19,7 +19,7 @@
 
 ●    Selezionare tutti gli ospiti che abbiano meno di 30 anni
         // soluzione migliore
-        SELECT * FROM `ospiti` WHERE `date_of_birth` > (CURDATE() - INTERVAL - 30); 
+        SELECT * FROM `ospiti` WHERE `date_of_birth` > (CURDATE() - INTERVAL 30 YEAR); 
 
         // soluzione alternativa (qui contempla solo gli anni ma modificabile)
         SELECT `name`,`lastname`,`date_of_birth`,TIMESTAMPDIFF(YEAR,`date_of_birth`, CURRENT_TIMESTAMP ) AS age FROM `ospiti` WHERE TIMESTAMPDIFF(YEAR,`date_of_birth`, CURRENT_TIMESTAMP ) <= 30;
